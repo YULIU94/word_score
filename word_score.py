@@ -74,10 +74,11 @@ def get_highest_scoring_pair(words):
         Get a pair of words with the highest scoring chance
         @param: List[str] - words
         Core algorithm: 
-                Since highest score is based on length of words and uniqueness
+                Since highest score is based on a multiplicatio of length of words and uniqueness
                 of comprising characters in string, we can use this to our advantage.
                 If we can sort the words based on length in descending order, 
-                then we do not need to traverse the entire list to find pairs that.
+                then we do not need to traverse the entire list to find pairs that score
+                highest.
                   
                 We simply filter out bad candidates that share characters between themselves.
                 The moment we find a pair with no similiar characters, that's our highest
