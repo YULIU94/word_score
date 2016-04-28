@@ -40,7 +40,8 @@ WORDS_TO_SCORE = (
 )
 
 def load_and_parse_words(file_name):
-    ''' Read file from input into all_words_list
+    ''' 
+        Read words from input file into all_words_list
         @param: str - file_name
         @rtype: List[str] - list of strings
     '''
@@ -90,8 +91,8 @@ def get_highest_scoring_pair(words):
     for i in xrange(1, len(words)):
         cur = words[i]
         
-        # Consider words that do not share characters.
-        # others are filtered out.
+        # Consider only words that do not share characters,
+        # filtering others.
         # Return the first occurence. 
         if not filter(lambda x: x in prev, cur):
             return [prev, cur]
