@@ -40,11 +40,10 @@ WORDS_TO_SCORE = (
 )
 
 def load_and_parse_words(file_name):
-    ''' Read file from input 
+    ''' Read file from input into all_words_list
         @param: str - file_name
         @rtype: List[str] - list of strings
     '''
-#    file_name = open(sys.argv[1]) if len(sys.argv) > 1 else sys.stdin 
     all_words_list = []
     if path.isfile(file_name):
         with open(file_name, 'r') as f:
@@ -52,7 +51,7 @@ def load_and_parse_words(file_name):
                 if line:
                     all_words_list.append(line.rstrip())
     else:
-        print '[ERROR] - File does not exist'
+        raise '[ERROR] - File does not exist'
     return all_words_list
 
 def score_word_pair(w1, w2):
@@ -90,11 +89,21 @@ def get_highest_scoring_pair(words):
     prev = words[0]
     for i in xrange(1, len(words)):
         cur = words[i]
+        
+        # Consider words that do not share characters.
+        # others are filtered out.
+        # Return the first occurence. 
         if not filter(lambda x: x in prev, cur):
             return [prev, cur]
         prev = cur
+    
+    # If all words in the list all share characters
+    # then it's impossible to find a score
+    return [None, None]
+
 if __name__ == "__main__":
     with Timer() as t:
+        
         # Accept input file as argument or use provided words_en.txt
         input_file_name = 'words_en.txt'
         if len(sys.argv) > 1:
@@ -104,6 +113,7 @@ if __name__ == "__main__":
         best_score = score_word_pair(*best_pair)
 
         print "\n\nHighest scoring pair of words is '{0[0]}' and '{0[1]}' with a score of {1}.\n\n".format(best_pair, best_score)
+        
     print 'Process took {0:.3f} sec.'.format(t.interval)
     
     
