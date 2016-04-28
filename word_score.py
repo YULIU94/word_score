@@ -10,7 +10,9 @@ from os import path
 
 ###### HELPER CLASS ##########
 class Timer: 
-    ''' Timer utility class '''      
+    ''' Timer utility class 
+        Used in timing the program
+    '''      
     def __enter__(self):
         self.start = time.clock()
         return self
